@@ -35,7 +35,7 @@ pipeline {
 
     environment {
         NEXUS_URL = 'nexus.techworldplus.xyz'
-        NEXUS_REPO = 'nexus-postboard-client'
+        NEXUS_REPO = 'spa-apps'
         NEXUS_CREDENTIALS_ID = 'nexusCreds'
 
 
