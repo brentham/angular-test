@@ -42,7 +42,7 @@ pipeline {
         REACT_APP_DIR = 'src' // Your React app directory
         // SONARQUBE_SERVER = 'https://sonarqube.techworldplus.xyz/' // Jenkins SonarQube server name
         SONARQUBE_SERVER = 'jenkins-sonar' // Jenkins SonarQube server name
-        SONAR_PROJECT_KEY = 'brentham_angular-test_2fef917f-25a0-4ecd-8a32-f15eba3321a0'
+        SONAR_PROJECT_KEY = 'sonar-angular'
         SONAR_PROJECT_NAME = 'angular-test'
         SONAR_PROJECT_VERSION = '1.0'
         DOCKER_IMAGE = 'brent/learn-jenkins-app:latest'
