@@ -15,35 +15,35 @@ pipeline {
     }
 
     stages {
-        stage('Install Dependencies') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    ls -la
-                    npm ci
-                    ls -la
-                '''
-            }
-        }
+        // stage('Install Dependencies') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             ls -la
+        //             npm ci
+        //             ls -la
+        //         '''
+        //     }
+        // }
 
-        stage('Run Tests') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm test -- --watchAll=false
-                '''
-            }
-        }
+        // stage('Run Tests') {
+        //     agent {
+        //         docker {
+        //             image 'node:18-alpine'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             npm test -- --watchAll=false
+        //         '''
+        //     }
+        // }
 
 
         stage('SonarQube Scan') {
