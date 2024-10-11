@@ -60,34 +60,14 @@ pipeline {
                                 -Dsonar.projectName=${SONAR_PROJECT_NAME} \
                                 -Dsonar.sources=./ \
                                 -Dsonar.working.directory=.scannerwork
-                            ls -la
-                            ls -la .scannerwork
                         '''
                 }
             }
         }
 
-        stage('Build React App') {
-            agent {
-                docker {
-                    image 'node:18-alpine'
-                    reuseNode true
-                }
-            }
-            steps {
-                sh '''
-                    npm run build
-                '''
-            }
-        }
 
-        // stage('Dockerize React App') {
-        //     steps {
-        //         script {
-        //             docker.build("${DOCKER_IMAGE}", "${APP_DIR}").push()
-        //         }
-        //     }
-        // }
+
+
 
         stage('Publish SonarQube Artifacts to Nexus') {
             steps {
