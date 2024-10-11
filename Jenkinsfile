@@ -39,45 +39,45 @@ pipeline {
         NEXUS_CREDENTIALS_ID = 'nexusCreds'
 
 
-        REACT_APP_DIR = 'src' // Your React app directory
-        // SONARQUBE_SERVER = 'https://sonarqube.techworldplus.xyz/' // Jenkins SonarQube server name
-        SONARQUBE_SERVER = 'jenkins-sonar' // Jenkins SonarQube server name
+        REACT_APP_DIR = 'src' 
+        // SONARQUBE_SERVER = 'https://sonarqube.techworldplus.xyz/'
+        SONARQUBE_SERVER = 'jenkins-sonar' 
         SONAR_PROJECT_KEY = 'sonar-angular'
         SONAR_PROJECT_NAME = 'angular-test'
         SONAR_PROJECT_VERSION = '1.0'
-        DOCKER_IMAGE = 'brent/learn-jenkins-app:latest'
+        DOCKER_IMAGE = 'angular-test-app:latest'
     }
 
     stages {
-        // stage('Install Dependencies') {
-        //     agent {
-        //         docker {
-        //             image 'node:18-alpine'
-        //             reuseNode true
-        //         }
-        //     }
-        //     steps {
-        //         sh '''
-        //             ls -la
-        //             npm ci
-        //             ls -la
-        //         '''
-        //     }
-        // }
+        stage('Install Dependencies') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    ls -la
+                    npm ci
+                    ls -la
+                '''
+            }
+        }
 
-        // stage('Run Tests') {
-        //     agent {
-        //         docker {
-        //             image 'node:18-alpine'
-        //             reuseNode true
-        //         }
-        //     }
-        //     steps {
-        //         sh '''
-        //             npm test -- --watchAll=false
-        //         '''
-        //     }
-        // }
+        stage('Run Tests') {
+            agent {
+                docker {
+                    image 'node:18-alpine'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    npm test -- --watchAll=false
+                '''
+            }
+        }
 
 
         stage('SonarQube Scan') {
