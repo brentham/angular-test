@@ -106,8 +106,7 @@ pipeline {
             }
             steps {
                 sh '''
-                    trivy --version
-                    time trivy image --download-db-only
+                    image python:3.4-alpine
                 '''
             }
         }
