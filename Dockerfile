@@ -8,12 +8,12 @@ RUN npm install
 
 RUN npm install -g @angular/cli
 
-COPY . .
+# COPY . .
 
-RUN ng build --configuration=production
+# RUN ng build --configuration=production
 
-FROM nginx:latest
+# FROM nginx:latest
 
-COPY --from=build app/dist/aftas-angular /usr/share/nginx/html
+# COPY --from=build app/dist/aftas-angular /usr/share/nginx/html
 
-EXPOSE 80
+# EXPOSE 80
