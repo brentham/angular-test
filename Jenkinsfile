@@ -96,6 +96,22 @@ pipeline {
         //         }
         //     }
         // }
+
+        stage('Trivy Scan') {
+            agent {
+                docker {
+                    image 'docker.io/aquasec/trivy:latest'
+                    reuseNode true
+                }
+            }
+            steps {
+                sh '''
+                    trivy --version
+                    time trivy image --download-db-only
+                '''
+            }
+        }
+
     }
 
     post {
