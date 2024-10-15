@@ -12,6 +12,8 @@ pipeline {
         NEXUS_URL = 'nexus.techworldplus.xyz'
         NEXUS_REPO = 'spa-apps'
         NEXUS_CREDENTIALS_ID = 'nexusCreds'
+        TRIVY_SEVERITY = 'HIGH,CRITICAL' // Scan for High and Critical vulnerabilities
+
     }
 
     stages {
@@ -97,17 +99,37 @@ pipeline {
         //     }
         // }
 
-        stage('Trivy Scan') {
-            agent {
-                docker {
-                    image 'docker.io/aquasec/trivy:latest'
-                    reuseNode true
+        // stage('Trivy Scan') {
+        //     agent {
+        //         docker {
+        //             image 'docker.io/aquasec/trivy:latest'
+        //             reuseNode true
+        //         }
+        //     }
+        //     steps {
+        //         sh '''
+        //             image python:3.4-alpine
+        //         '''
+        //     }
+        // }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    // Build Docker image using the Dockerfile in the app directory
+                    docker.build("${DOCKER_IMAGE}", ".")
                 }
             }
+        }
+
+        stage('Trivy Scan Docker Image') {
             steps {
-                sh '''
-                    image python:3.4-alpine
-                '''
+                script {
+                    // Run Trivy scan on the Docker image
+                    docker.image('aquasec/trivy:latest').inside {
+                        sh "trivy image --severity ${TRIVY_SEVERITY} --exit-code 1 --no-progress ${DOCKER_IMAGE}"
+                    }
+                }
             }
         }
 
